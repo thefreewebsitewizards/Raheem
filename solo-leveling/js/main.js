@@ -53,7 +53,7 @@ fadeElements.forEach(element => {
 
 // Add fade-in class to elements that should animate
 document.addEventListener('DOMContentLoaded', () => {
-    const elementsToAnimate = document.querySelectorAll('.hero-content h1, .hero-content p, .hero-content .cta-button, .featured h2, .chapter-card, .chapter-title, .chapter-content, .panel');
+    const elementsToAnimate = document.querySelectorAll('.hero-content h1, .hero-content p, .hero-content .cta-button, .featured h2, .chapter-card, .chapter-title');
     
     elementsToAnimate.forEach((element, index) => {
         element.classList.add('fade-in');
@@ -89,6 +89,9 @@ function setupChapterNavigation() {
     if (chapterTitle) {
         chapterTitle.textContent = `Chapter ${currentChapter}`;
     }
+    
+    // Load chapter content
+    loadChapterContent(currentChapter);
     
     // Setup navigation buttons
     const prevButton = document.querySelector('.prev-chapter');
@@ -148,6 +151,51 @@ function setupChapterNavigation() {
         chapterSelect.addEventListener('change', (e) => {
             window.location.href = `chapter.html?id=${e.target.value}`;
         });
+    }
+}
+
+// Load chapter content based on chapter number
+function loadChapterContent(chapterNumber) {
+    const chapterContent = document.querySelector('.chapter-content');
+    if (!chapterContent) return;
+    
+    // Clear existing content
+    chapterContent.innerHTML = '';
+    
+    // Force visibility of the container
+    chapterContent.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important;';
+    
+    if (chapterNumber === 0) {
+        // Load Chapter 0 images (02.jpg to 09.jpg)
+        for (let i = 2; i <= 9; i++) {
+            const panel = document.createElement('div');
+            panel.className = 'panel';
+            panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; background: red; min-height: 600px;';
+            
+            const img = document.createElement('img');
+            img.src = `../images/chapter 0/${i.toString().padStart(2, '0')}.jpg`;
+            img.alt = `Chapter 0 - Page ${i}`;
+            img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+            
+            // Add error handling for image loading
+            img.onload = function() {
+                console.log(`Image ${i} loaded successfully`);
+            };
+            img.onerror = function() {
+                console.error(`Failed to load image ${i}: ${img.src}`);
+                panel.innerHTML = `<p style="color: white;">Failed to load image ${i}</p>`;
+            };
+            
+            panel.appendChild(img);
+            chapterContent.appendChild(panel);
+        }
+    } else {
+        // For other chapters, keep the dummy panels
+        for (let i = 0; i < 6; i++) {
+            const panel = document.createElement('div');
+            panel.className = 'panel fade-in active';
+            chapterContent.appendChild(panel);
+        }
     }
 }
 
