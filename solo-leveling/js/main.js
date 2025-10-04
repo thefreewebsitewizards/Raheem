@@ -82,7 +82,7 @@ function setupChapterNavigation() {
     
     // Ensure chapter is within valid range (now includes chapter 0)
     if (currentChapter < 0) currentChapter = 0;
-    if (currentChapter > 100) currentChapter = 100;
+    if (currentChapter > 204) currentChapter = 204;
     
     // Update chapter title
     const chapterTitle = document.querySelector('.chapter-title');
@@ -113,13 +113,13 @@ function setupChapterNavigation() {
     
     if (nextButton) {
         nextButton.addEventListener('click', () => {
-            if (currentChapter < 100) {
+            if (currentChapter < 204) {
                 window.location.href = `chapter.html?id=${currentChapter + 1}`;
             }
         });
         
-        // Disable next button if on chapter 100
-        if (currentChapter === 100) {
+        // Disable next button if on chapter 204
+        if (currentChapter === 204) {
             nextButton.disabled = true;
             nextButton.style.opacity = '0.5';
         }
@@ -137,8 +137,8 @@ function setupChapterNavigation() {
         }
         chapterSelect.appendChild(chapterZeroOption);
         
-        // Add chapters 1-100
-        for (let i = 1; i <= 100; i++) {
+        // Add chapters 1-204
+        for (let i = 1; i <= 204; i++) {
             const option = document.createElement('option');
             option.value = i;
             option.textContent = `Chapter ${i}`;
