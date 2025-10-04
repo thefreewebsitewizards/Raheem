@@ -264,6 +264,24 @@ ul {
     border: 1px solid rgba(76, 201, 240, 0.3);
 }
 
+.chapter-gif {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.gif-image {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid rgba(76, 201, 240, 0.3);
+    transition: border-color 0.3s ease;
+}
+
+.chapter-card:hover .gif-image {
+    border-color: rgba(76, 201, 240, 0.8);
+}
+
 .chapter-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
