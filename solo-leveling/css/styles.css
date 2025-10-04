@@ -104,14 +104,31 @@ ul {
 .menu-toggle {
     display: none;
     cursor: pointer;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
 }
 
 .bar {
     width: 25px;
     height: 3px;
     background-color: var(--text-color);
-    margin: 5px 0;
-    transition: 0.4s;
+    transition: 0.3s;
+    transform-origin: center;
+}
+
+.menu-toggle.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* Hero Section */
@@ -318,42 +335,91 @@ footer {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+    .navbar {
+        padding: 1rem 3%;
+    }
+
     .menu-toggle {
-        display: block;
+        display: flex !important;
     }
 
     .nav-menu {
+        display: none !important;
         position: fixed;
         top: -100%;
         left: 0;
         width: 100%;
-        background-color: var(--primary-bg);
+        background-color: rgba(18, 18, 18, 0.95);
+        backdrop-filter: blur(10px);
         flex-direction: column;
         align-items: center;
         padding: 2rem 0;
-        transition: 0.5s;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        transition: top 0.3s ease;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid rgba(76, 201, 240, 0.3);
+        z-index: 999;
     }
 
     .nav-menu.active {
+        display: flex !important;
         top: 70px;
     }
 
     .nav-menu li {
-        margin: 1rem 0;
+        margin: 1.5rem 0;
+    }
+
+    .nav-menu a {
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+        background-color: rgba(76, 201, 240, 0.1);
+    }
+
+    .hero {
+        height: 100vh;
+        padding: 0 1rem;
     }
 
     .hero h1 {
         font-size: 2.5rem;
+        letter-spacing: 2px;
     }
 
     .hero p {
         font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .cta-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .featured {
+        padding: 3rem 1rem;
+    }
+
+    .featured h2 {
+        font-size: 2rem;
     }
 
     .featured-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .chapter-card {
+        padding: 1.5rem;
+    }
+
+    .chapter-card h3 {
+        font-size: 1.2rem;
     }
 }
 
