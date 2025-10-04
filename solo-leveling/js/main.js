@@ -78,10 +78,10 @@ function setupChapterNavigation() {
 
     // Get chapter ID from URL
     const urlParams = new URLSearchParams(window.location.search);
-    let currentChapter = parseInt(urlParams.get('id')) || 1;
+    let currentChapter = urlParams.get('id') !== null ? parseInt(urlParams.get('id')) : 1;
     
-    // Ensure chapter is within valid range
-    if (currentChapter < 1) currentChapter = 1;
+    // Ensure chapter is within valid range (now includes chapter 0)
+    if (currentChapter < 0) currentChapter = 0;
     if (currentChapter > 100) currentChapter = 100;
     
     // Update chapter title
@@ -96,14 +96,15 @@ function setupChapterNavigation() {
     
     if (prevButton) {
         prevButton.addEventListener('click', () => {
-            if (currentChapter > 1) {
+            if (currentChapter > 0) {
                 window.location.href = `chapter.html?id=${currentChapter - 1}`;
             }
         });
         
-        // Disable prev button if on first chapter
-        if (currentChapter === 1) {
-            prevButton.classList.add('disabled');
+        // Disable prev button if on chapter 0
+        if (currentChapter === 0) {
+            prevButton.disabled = true;
+            prevButton.style.opacity = '0.5';
         }
     }
     
@@ -114,15 +115,26 @@ function setupChapterNavigation() {
             }
         });
         
-        // Disable next button if on last chapter
+        // Disable next button if on chapter 100
         if (currentChapter === 100) {
-            nextButton.classList.add('disabled');
+            nextButton.disabled = true;
+            nextButton.style.opacity = '0.5';
         }
     }
     
     // Setup chapter dropdown
     const chapterSelect = document.querySelector('#chapter-select');
     if (chapterSelect) {
+        // Add Chapter 0 first
+        const chapterZeroOption = document.createElement('option');
+        chapterZeroOption.value = 0;
+        chapterZeroOption.textContent = 'Chapter 0';
+        if (currentChapter === 0) {
+            chapterZeroOption.selected = true;
+        }
+        chapterSelect.appendChild(chapterZeroOption);
+        
+        // Add chapters 1-100
         for (let i = 1; i <= 100; i++) {
             const option = document.createElement('option');
             option.value = i;
@@ -147,6 +159,23 @@ function generateChapterCards() {
     const chaptersGrid = document.querySelector('.chapters-grid');
     if (!chaptersGrid) return;
     
+    // Add Chapter 0 first
+    const chapterZeroCard = document.createElement('div');
+    chapterZeroCard.className = 'chapter-card fade-in';
+    
+    chapterZeroCard.innerHTML = `
+        <div class="chapter-number">Chapter 0</div>
+        <a href="chapter.html?id=0" class="read-button">Read</a>
+    `;
+    
+    chaptersGrid.appendChild(chapterZeroCard);
+    
+    // Force visibility for chapter 0
+    setTimeout(() => {
+        chapterZeroCard.classList.add('active');
+    }, 25); // Show first
+    
+    // Add chapters 1-100
     for (let i = 1; i <= 100; i++) {
         const card = document.createElement('div');
         card.className = 'chapter-card fade-in';
@@ -161,7 +190,7 @@ function generateChapterCards() {
         // Force visibility for dynamically created cards
         setTimeout(() => {
             card.classList.add('active');
-        }, i * 50); // Stagger the animations
+        }, (i + 1) * 50); // Stagger the animations (i+1 to account for chapter 0)
     }
 }
 
