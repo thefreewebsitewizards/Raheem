@@ -170,7 +170,7 @@ function loadChapterContent(chapterNumber) {
         for (let i = 2; i <= 9; i++) {
             const panel = document.createElement('div');
             panel.className = 'panel';
-            panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; background: red; min-height: 600px;';
+            panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
             img.src = `../images/chapter 0/${i.toString().padStart(2, '0')}.jpg`;
@@ -179,11 +179,35 @@ function loadChapterContent(chapterNumber) {
             
             // Add error handling for image loading
             img.onload = function() {
-                console.log(`Image ${i} loaded successfully`);
+                console.log(`Chapter 0 - Image ${i} loaded successfully`);
             };
             img.onerror = function() {
-                console.error(`Failed to load image ${i}: ${img.src}`);
-                panel.innerHTML = `<p style="color: white;">Failed to load image ${i}</p>`;
+                console.error(`Failed to load Chapter 0 image ${i}: ${img.src}`);
+                panel.innerHTML = `<p style="color: white;">Failed to load Chapter 0 image ${i}</p>`;
+            };
+            
+            panel.appendChild(img);
+            chapterContent.appendChild(panel);
+        }
+    } else if (chapterNumber === 1) {
+        // Load Chapter 1 images (01.jpg to 26.jpg)
+        for (let i = 1; i <= 26; i++) {
+            const panel = document.createElement('div');
+            panel.className = 'panel';
+            panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+            
+            const img = document.createElement('img');
+            img.src = `../images/chapter 1/${i.toString().padStart(2, '0')}.jpg`;
+            img.alt = `Chapter 1 - Page ${i}`;
+            img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+            
+            // Add error handling for image loading
+            img.onload = function() {
+                console.log(`Chapter 1 - Image ${i} loaded successfully`);
+            };
+            img.onerror = function() {
+                console.error(`Failed to load Chapter 1 image ${i}: ${img.src}`);
+                panel.innerHTML = `<p style="color: white;">Failed to load Chapter 1 image ${i}</p>`;
             };
             
             panel.appendChild(img);
