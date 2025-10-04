@@ -447,13 +447,19 @@ function generateChapterCards() {
     const chaptersGrid = document.querySelector('.chapters-grid');
     if (!chaptersGrid) return;
     
+    // Function to get chapter text based on screen size
+    function getChapterText(number) {
+        return window.innerWidth <= 768 ? number : `Chapter ${number}`;
+    }
+    
     // Add Chapter 0 first
     const chapterZeroCard = document.createElement('div');
     chapterZeroCard.className = 'chapter-card fade-in';
+    chapterZeroCard.style.cursor = 'pointer';
+    chapterZeroCard.onclick = () => window.location.href = 'chapter.html?id=0';
     
     chapterZeroCard.innerHTML = `
-        <div class="chapter-number">Chapter 0</div>
-        <button class="read-btn" onclick="window.location.href='chapter.html?id=0'">Read</button>
+        <div class="chapter-number">${getChapterText(0)}</div>
     `;
     
     chaptersGrid.appendChild(chapterZeroCard);
@@ -467,10 +473,11 @@ function generateChapterCards() {
     for (let i = 1; i <= 204; i++) {
         const card = document.createElement('div');
         card.className = 'chapter-card fade-in';
+        card.style.cursor = 'pointer';
+        card.onclick = () => window.location.href = `chapter.html?id=${i}`;
         
         card.innerHTML = `
-            <div class="chapter-number">Chapter ${i}</div>
-            <button class="read-btn" onclick="window.location.href='chapter.html?id=${i}'">Read</button>
+            <div class="chapter-number">${getChapterText(i)}</div>
         `;
         
         chaptersGrid.appendChild(card);
@@ -480,6 +487,15 @@ function generateChapterCards() {
             card.classList.add('active');
         }, (i + 1) * 50); // Stagger the animations (i+1 to account for chapter 0)
     }
+    
+    // Update chapter text on window resize
+    window.addEventListener('resize', () => {
+        const chapterNumbers = document.querySelectorAll('.chapter-number');
+        chapterNumbers.forEach((element, index) => {
+            const chapterNum = index === 0 ? 0 : index;
+            element.textContent = getChapterText(chapterNum);
+        });
+    });
 }
 
 // Run chapter card generation if on chapters page
