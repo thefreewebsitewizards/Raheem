@@ -3,7 +3,7 @@
     background-color: var(--secondary-bg);
     padding: 5rem 0;
     text-align: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/about-bg.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/header.jpg');
     background-size: cover;
     background-position: center;
     position: relative;

@@ -64,6 +64,31 @@
             background-color: #c8323e;
             box-shadow: 0 0 15px rgba(230, 57, 70, 0.7);
         }
+        
+        /* Hide main content when popup is active */
+        body.popup-active .hero,
+        body.popup-active .featured {
+            display: none !important;
+        }
+        
+        /* Ensure content is visible when popup is not active */
+        body:not(.popup-active) .hero {
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        body:not(.popup-active) .featured {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        /* Override fade-in animation when popup is not active */
+        body:not(.popup-active) .fade-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
     </style>
 </head>
 <body>
@@ -97,7 +122,7 @@
             </div>
         </div>
         
-        <section class="hero" id="hero-section" style="display: none;">
+        <section class="hero" id="hero-section">
             <div class="hero-content">
                 <h1 class="glowing-text">SOLO LEVELING</h1>
                 <p>The weakest hunter of all mankind is on a quest to become the strongest.</p>
@@ -105,7 +130,7 @@
             </div>
         </section>
 
-        <section class="featured" id="featured-section" style="display: none;">
+        <section class="featured" id="featured-section">
             <h2>FEATURED CHAPTERS</h2>
             <div class="featured-grid">
                 <div class="chapter-card">
@@ -150,45 +175,34 @@
 
     <script>
         function closePopup() {
-            console.log('Close popup function called');
-            const overlay = document.getElementById('popup-overlay');
-            const heroSection = document.getElementById('hero-section');
-            const featuredSection = document.getElementById('featured-section');
+            console.log('Closing popup...');
             
-            console.log('Elements found:');
-            console.log('- Overlay:', overlay);
-            console.log('- Hero section:', heroSection);
-            console.log('- Featured section:', featuredSection);
-            
+            // Hide the popup overlay
+            const overlay = document.querySelector('.popup-overlay');
             if (overlay) {
                 overlay.style.display = 'none';
-                console.log('Popup overlay hidden');
+                console.log('Popup hidden');
             }
             
+            // Remove the popup-active class to show the main content
+            document.body.classList.remove('popup-active');
+            console.log('popup-active class removed');
+            
+            // Force show the sections
+            const heroSection = document.querySelector('.hero');
+            const featuredSection = document.querySelector('.featured');
+            
             if (heroSection) {
-                console.log('Hero section before:', window.getComputedStyle(heroSection).display);
-                heroSection.style.display = 'block';
+                heroSection.style.display = 'flex';
                 heroSection.style.visibility = 'visible';
-                console.log('Hero section after:', window.getComputedStyle(heroSection).display);
-                console.log('Hero section displayed');
-            } else {
-                console.error('Hero section not found!');
+                console.log('Hero section forced visible');
             }
             
             if (featuredSection) {
-                console.log('Featured section before:', window.getComputedStyle(featuredSection).display);
                 featuredSection.style.display = 'block';
                 featuredSection.style.visibility = 'visible';
-                console.log('Featured section after:', window.getComputedStyle(featuredSection).display);
-                console.log('Featured section displayed');
-            } else {
-                console.error('Featured section not found!');
+                console.log('Featured section forced visible');
             }
-            
-            // Force a repaint
-            document.body.style.display = 'none';
-            document.body.offsetHeight; // Trigger reflow
-            document.body.style.display = '';
         }
     </script>
 </body>

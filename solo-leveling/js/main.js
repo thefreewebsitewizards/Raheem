@@ -53,12 +53,21 @@ fadeElements.forEach(element => {
 
 // Add fade-in class to elements that should animate
 document.addEventListener('DOMContentLoaded', () => {
-    const elementsToAnimate = document.querySelectorAll('.hero-content h1, .hero-content p, .hero-content .cta-button, .featured h2, .chapter-card');
+    const elementsToAnimate = document.querySelectorAll('.hero-content h1, .hero-content p, .hero-content .cta-button, .featured h2, .chapter-card, .chapter-title, .chapter-content, .panel');
     
     elementsToAnimate.forEach((element, index) => {
         element.classList.add('fade-in');
         // Stagger the animations
         element.style.transitionDelay = `${index * 0.1}s`;
+    });
+    
+    // Re-initialize the intersection observer for newly added elements
+    const newFadeElements = document.querySelectorAll('.fade-in');
+    newFadeElements.forEach(element => {
+        if (!element.hasAttribute('data-observed')) {
+            fadeInObserver.observe(element);
+            element.setAttribute('data-observed', 'true');
+        }
     });
 });
 
@@ -148,6 +157,11 @@ function generateChapterCards() {
         `;
         
         chaptersGrid.appendChild(card);
+        
+        // Force visibility for dynamically created cards
+        setTimeout(() => {
+            card.classList.add('active');
+        }, i * 50); // Stagger the animations
     }
 }
 

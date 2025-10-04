@@ -3,7 +3,7 @@
     background-color: var(--secondary-bg);
     padding: 5rem 0;
     text-align: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/chapters-bg.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/header.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -36,21 +36,23 @@
 
 .chapters-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
 }
 
 .chapter-card {
     background-color: var(--secondary-bg);
-    border-radius: 10px;
-    padding: 2rem;
+    border-radius: 8px;
+    padding: 1rem;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(76, 201, 240, 0.2);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 150px;
+    min-height: 100px;
+    max-width: 180px;
+    margin: 0 auto;
 }
 
 .chapter-card:hover {
@@ -61,10 +63,10 @@
 
 .chapter-number {
     font-family: var(--title-font);
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--accent-cyan);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 /* Chapter View Page Styles */
@@ -74,14 +76,34 @@
 }
 
 .chapter-header {
+    background-color: var(--secondary-bg);
+    padding: 5rem 0;
     text-align: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/header.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
     margin-bottom: 3rem;
 }
 
+.chapter-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(244, 196, 48, 0.1) 0%, rgba(18, 18, 18, 0.9) 70%);
+}
+
 .chapter-title {
+    position: relative;
+    z-index: 1;
     font-size: 2.5rem;
     color: var(--accent-gold);
-    text-shadow: 0 0 10px rgba(244, 196, 48, 0.5);
+    text-shadow: 0 0 10px rgba(244, 196, 48, 0.7),
+                 0 0 20px rgba(244, 196, 48, 0.5),
+                 0 0 30px rgba(244, 196, 48, 0.3);
 }
 
 .chapter-content {
