@@ -173,7 +173,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 0/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 0/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 0 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -197,7 +197,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 1/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 1/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 1 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -221,7 +221,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 2/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 2/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 2 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -245,7 +245,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 3/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 3/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 3 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -269,7 +269,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 4/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 4/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 4 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -293,7 +293,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 5/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 5/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 5 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -317,7 +317,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 6/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 6/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 6 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -341,7 +341,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 7/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 7/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 7 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -365,7 +365,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 8/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 8/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 8 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -389,7 +389,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 9/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 9/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 9 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
@@ -413,7 +413,7 @@ function loadChapterContent(chapterNumber) {
             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
             
             const img = document.createElement('img');
-            img.src = `../images/chapter 10/${i.toString().padStart(2, '0')}.jpg`;
+            img.src = `images/chapter 10/${i.toString().padStart(2, '0')}.jpg`;
             img.alt = `Chapter 10 - Page ${i}`;
             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
             
