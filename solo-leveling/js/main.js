@@ -453,7 +453,7 @@ function generateChapterCards() {
     
     chapterZeroCard.innerHTML = `
         <div class="chapter-number">Chapter 0</div>
-        <button class="read-btn">Read</button>
+        <button class="read-btn" onclick="window.location.href='chapter.html?id=0'">Read</button>
     `;
     
     chaptersGrid.appendChild(chapterZeroCard);
@@ -463,14 +463,14 @@ function generateChapterCards() {
         chapterZeroCard.classList.add('active');
     }, 25); // Show first
     
-    // Add chapters 1-100
-    for (let i = 1; i <= 100; i++) {
+    // Add chapters 1-204
+    for (let i = 1; i <= 204; i++) {
         const card = document.createElement('div');
         card.className = 'chapter-card fade-in';
         
         card.innerHTML = `
             <div class="chapter-number">Chapter ${i}</div>
-            <button class="read-btn">Read</button>
+            <button class="read-btn" onclick="window.location.href='chapter.html?id=${i}'">Read</button>
         `;
         
         chaptersGrid.appendChild(card);
