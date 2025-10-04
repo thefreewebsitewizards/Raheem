@@ -453,7 +453,7 @@ function generateChapterCards() {
     
     chapterZeroCard.innerHTML = `
         <div class="chapter-number">Chapter 0</div>
-        <a href="chapter.html?id=0" class="read-button">Read</a>
+        <button class="read-btn">Read</button>
     `;
     
     chaptersGrid.appendChild(chapterZeroCard);
@@ -470,7 +470,7 @@ function generateChapterCards() {
         
         card.innerHTML = `
             <div class="chapter-number">Chapter ${i}</div>
-            <a href="chapter.html?id=${i}" class="read-button">Read</a>
+            <button class="read-btn">Read</button>
         `;
         
         chaptersGrid.appendChild(card);
