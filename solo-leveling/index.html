@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Leveling</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="js/main.js" defer></script>
+    <style>
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup {
+            background-color: #121212;
+            border: 2px solid #4CC9F0;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
+        }
+        
+        .popup h2 {
+            color: #E63946;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .popup p {
+            color: #f5f5f5;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .popup-close {
+            padding: 12px 24px;
+            background-color: #E63946;
+            color: #f5f5f5;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-close:hover {
+            background-color: #c8323e;
+            box-shadow: 0 0 15px rgba(230, 57, 70, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">SOLO LEVELING</a>
+            </div>
+            <div class="menu-toggle">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="chapters.html">Chapters</a></li>
+                <li><a href="characters.html">Characters</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Welcome Popup -->
+        <div class="popup-overlay" id="popup-overlay">
+            <div class="popup">
+                <h2>Welcome to Solo Leveling</h2>
+                <p>Enter the world of Sung Jin-Woo and experience the ultimate power fantasy.</p>
+                <button class="popup-close" onclick="closePopup()">ENTER SITE</button>
+            </div>
+        </div>
+        
+        <section class="hero" id="hero-section" style="display: none;">
+            <div class="hero-content">
+                <h1 class="glowing-text">SOLO LEVELING</h1>
+                <p>The weakest hunter of all mankind is on a quest to become the strongest.</p>
+                <a href="chapters.html" class="cta-button">START READING</a>
+            </div>
+        </section>
+
+        <section class="featured" id="featured-section" style="display: none;">
+            <h2>FEATURED CHAPTERS</h2>
+            <div class="featured-grid">
+                <div class="chapter-card">
+                    <div class="chapter-number">Chapter 1</div>
+                    <div class="chapter-title">The Weakest Hunter</div>
+                    <a href="chapter.html?id=1" class="read-button">Read</a>
+                </div>
+                <div class="chapter-card">
+                    <div class="chapter-number">Chapter 10</div>
+                    <div class="chapter-title">The Double Dungeon</div>
+                    <a href="chapter.html?id=10" class="read-button">Read</a>
+                </div>
+                <div class="chapter-card">
+                    <div class="chapter-number">Chapter 25</div>
+                    <div class="chapter-title">The Red Gate</div>
+                    <a href="chapter.html?id=25" class="read-button">Read</a>
+                </div>
+                <div class="chapter-card">
+                    <div class="chapter-number">Chapter 50</div>
+                    <div class="chapter-title">The Shadow Monarch</div>
+                    <a href="chapter.html?id=50" class="read-button">Read</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">SOLO LEVELING</div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="chapters.html">Chapters</a>
+                <a href="characters.html">Characters</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2023 Solo Leveling Fan Site. This is a fan-made website.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function closePopup() {
+            console.log('Close popup function called');
+            const overlay = document.getElementById('popup-overlay');
+            const heroSection = document.getElementById('hero-section');
+            const featuredSection = document.getElementById('featured-section');
+            
+            console.log('Elements found:');
+            console.log('- Overlay:', overlay);
+            console.log('- Hero section:', heroSection);
+            console.log('- Featured section:', featuredSection);
+            
+            if (overlay) {
+                overlay.style.display = 'none';
+                console.log('Popup overlay hidden');
+            }
+            
+            if (heroSection) {
+                console.log('Hero section before:', window.getComputedStyle(heroSection).display);
+                heroSection.style.display = 'block';
+                heroSection.style.visibility = 'visible';
+                console.log('Hero section after:', window.getComputedStyle(heroSection).display);
+                console.log('Hero section displayed');
+            } else {
+                console.error('Hero section not found!');
+            }
+            
+            if (featuredSection) {
+                console.log('Featured section before:', window.getComputedStyle(featuredSection).display);
+                featuredSection.style.display = 'block';
+                featuredSection.style.visibility = 'visible';
+                console.log('Featured section after:', window.getComputedStyle(featuredSection).display);
+                console.log('Featured section displayed');
+            } else {
+                console.error('Featured section not found!');
+            }
+            
+            // Force a repaint
+            document.body.style.display = 'none';
+            document.body.offsetHeight; // Trigger reflow
+            document.body.style.display = '';
+        }
+    </script>
+</body>
+</html>

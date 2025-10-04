@@ -1,0 +1,119 @@
+/* About Page Specific Styles */
+.page-header {
+    background-color: var(--secondary-bg);
+    padding: 5rem 0;
+    text-align: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/about-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(76, 201, 240, 0.1) 0%, rgba(18, 18, 18, 0.9) 70%);
+}
+
+.page-header h1 {
+    position: relative;
+    z-index: 1;
+    font-size: 3rem;
+    color: var(--text-color);
+    text-shadow: 0 0 10px rgba(76, 201, 240, 0.7),
+                 0 0 20px rgba(76, 201, 240, 0.5),
+                 0 0 30px rgba(76, 201, 240, 0.3);
+}
+
+.about-section {
+    padding: 5rem 5%;
+    background-color: var(--primary-bg);
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.about-image {
+    height: 300px;
+    background: linear-gradient(45deg, #2a2a2a, #3a3a3a);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.about-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+                rgba(76, 201, 240, 0.2) 0%, 
+                rgba(18, 18, 18, 0) 50%,
+                rgba(230, 57, 70, 0.2) 100%);
+}
+
+.about-text {
+    background-color: var(--secondary-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(76, 201, 240, 0.2);
+}
+
+.about-text h2 {
+    font-family: var(--title-font);
+    font-size: 2.5rem;
+    color: var(--accent-cyan);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px rgba(76, 201, 240, 0.5);
+}
+
+.about-text h3 {
+    font-family: var(--title-font);
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    margin: 2rem 0 1rem;
+}
+
+.about-text p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .about-content {
+        flex-direction: row;
+    }
+    
+    .about-image {
+        flex: 1;
+        height: auto;
+    }
+    
+    .about-text {
+        flex: 2;
+    }
+}
+
+@media (max-width: 767px) {
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    .about-text h2 {
+        font-size: 2rem;
+    }
+}
