@@ -649,6 +649,31 @@ function loadChapterContent(chapterNumber) {
              panel.appendChild(img);
              chapterContent.appendChild(panel);
          }
+     } else if (chapterNumber === 20) {
+         // Load Chapter 20 images (03.jpg to 20.jpg and 22.jpg)
+         for (let i = 3; i <= 22; i++) {
+             if (i === 21) continue; // Skip missing image 21.jpg
+             const panel = document.createElement('div');
+             panel.className = 'panel';
+             panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+             
+             const img = document.createElement('img');
+             img.src = `images/chapter 20/${i.toString().padStart(2, '0')}.jpg`;
+             img.alt = `Chapter 20 - Page ${i}`;
+             img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+             
+             // Add error handling for image loading
+             img.onload = function() {
+                 console.log(`Chapter 20 - Image ${i} loaded successfully`);
+             };
+             img.onerror = function() {
+                 console.error(`Failed to load Chapter 20 image ${i}: ${img.src}`);
+                 panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 20 image ${i}</p>`;
+             };
+             
+             panel.appendChild(img);
+             chapterContent.appendChild(panel);
+         }
      } else {
          // For other chapters, keep the dummy panels
          for (let i = 0; i < 6; i++) {
