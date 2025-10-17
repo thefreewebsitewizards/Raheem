@@ -2003,6 +2003,56 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
+      } else if (chapterNumber === 75) {
+          // Load Chapter 75 images (01.jpg to 23.jpg)
+          for (let i = 1; i <= 23; i++) {
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              
+              const img = document.createElement('img');
+              img.src = `images/chapter 75/${i.toString().padStart(2, '0')}.jpg`;
+              img.alt = `Chapter 75 - Page ${i}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              
+              // Add error handling for image loading
+              img.onload = function() {
+                  console.log(`Chapter 75 - Image ${i} loaded successfully`);
+              };
+              img.onerror = function() {
+                  console.error(`Failed to load Chapter 75 image ${i}: ${img.src}`);
+                  panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 75 image ${i}</p>`;
+              };
+              
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
+      } else if (chapterNumber === 76) {
+          // Load Chapter 76 images (01.jpg to 30 with 02 missing and 30.png)
+          for (let i = 1; i <= 30; i++) {
+              if (i === 2) continue; // Skip missing 02.jpg
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              
+              const img = document.createElement('img');
+              const ext = i === 30 ? 'png' : 'jpg';
+              img.src = `images/chapter 76/${i.toString().padStart(2, '0')}.${ext}`;
+              img.alt = `Chapter 76 - Page ${i}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              
+              // Add error handling for image loading
+              img.onload = function() {
+                  console.log(`Chapter 76 - Image ${i} loaded successfully`);
+              };
+              img.onerror = function() {
+                  console.error(`Failed to load Chapter 76 image ${i}: ${img.src}`);
+                  panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 76 image ${i}</p>`;
+              };
+              
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
       } else {
           // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
