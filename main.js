@@ -3012,6 +3012,53 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
+      } else if (chapterNumber === 113) {
+          // Load Chapter 113 images (1 to 8, no leading zeros)
+          for (let i = 1; i <= 8; i++) {
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              
+              const img = document.createElement('img');
+              img.alt = `Chapter 113 - Page ${i}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              img.src = `images/chapter 113/${i}.jpg`;
+              
+              img.onload = function() {
+                  console.log(`Chapter 113 - Image ${i} loaded successfully`);
+              };
+              img.onerror = function() {
+                  console.error(`Failed to load Chapter 113 image ${i}: ${img.src}`);
+                  panel.innerHTML = `<p style="color: white;">Failed to load Chapter 113 image ${i}</p>`;
+              };
+              
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
+      } else if (chapterNumber === 114) {
+          // Load Chapter 114 images (01 to 35)
+          for (let i = 1; i <= 35; i++) {
+              const nn = i.toString().padStart(2, '0');
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              
+              const img = document.createElement('img');
+              img.alt = `Chapter 114 - Page ${i}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              img.src = `images/chapter 114/${nn}.jpg`;
+              
+              img.onload = function() {
+                  console.log(`Chapter 114 - Image ${i} loaded successfully`);
+              };
+              img.onerror = function() {
+                  console.error(`Failed to load Chapter 114 image ${i}: ${img.src}`);
+                  panel.innerHTML = `<p style="color: white;">Failed to load Chapter 114 image ${i}</p>`;
+              };
+              
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
       } else {
           // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
