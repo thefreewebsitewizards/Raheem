@@ -2800,6 +2800,40 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
+      } else if (chapterNumber === 105) {
+          // Load Chapter 105 images (01 to 42, skipping 02), with .jpg/.png fallback
+          for (let i = 1; i <= 42; i++) {
+              if (i === 2) continue; // Skip missing 02
+              const nn = i.toString().padStart(2, '0');
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              
+              const img = document.createElement('img');
+              img.alt = `Chapter 105 - Page ${i}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              
+              // Try .jpg first, then fallback to .png if .jpg fails
+              img.src = `images/chapter 105/${nn}.jpg`;
+              img.onload = function() {
+                  console.log(`Chapter 105 - Image ${i} loaded successfully (${img.src})`);
+              };
+              img.onerror = function() {
+                  const originalOnError = img.onerror;
+                  // Set a second onerror handler to report failure if .png also fails
+                  img.onerror = function() {
+                      console.error(`Failed to load Chapter 105 image ${i} as .jpg and .png`);
+                      panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 105 image ${i}</p>`;
+                  };
+                  // Fallback to .png
+                  img.src = `images/chapter 105/${nn}.png`;
+                  // Restore original onerror after attempt (optional)
+                  img.onerror = img.onerror; // keep the failure handler
+              };
+              
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
       } else {
           // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
