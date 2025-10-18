@@ -78,20 +78,24 @@ function setupChapterNavigation() {
 
     // Get chapter ID from URL
     const urlParams = new URLSearchParams(window.location.search);
-    let currentChapter = urlParams.get('id') !== null ? parseInt(urlParams.get('id')) : 1;
+    const rawId = urlParams.get('id');
+    const isSpecialChapter = rawId === '90.2';
+    let currentChapter = rawId !== null ? parseInt(rawId) : 1;
     
     // Ensure chapter is within valid range (now includes chapter 0)
-    if (currentChapter < 0) currentChapter = 0;
-    if (currentChapter > 204) currentChapter = 204;
+    if (!isSpecialChapter) {
+        if (currentChapter < 0) currentChapter = 0;
+        if (currentChapter > 204) currentChapter = 204;
+    }
     
     // Update chapter title
     const chapterTitle = document.querySelector('.chapter-title');
     if (chapterTitle) {
-        chapterTitle.textContent = `Chapter ${currentChapter}`;
+        chapterTitle.textContent = isSpecialChapter ? 'Chapter 90.2' : `Chapter ${currentChapter}`;
     }
     
     // Load chapter content
-    loadChapterContent(currentChapter);
+    loadChapterContent(isSpecialChapter ? '90.2' : currentChapter);
     
     // Setup navigation buttons
     const prevButton = document.querySelector('.prev-chapter');
@@ -137,12 +141,32 @@ function setupChapterNavigation() {
         }
         chapterSelect.appendChild(chapterZeroOption);
         
-        // Add chapters 1-204
-        for (let i = 1; i <= 204; i++) {
+        // Add chapters 1-90
+        for (let i = 1; i <= 90; i++) {
             const option = document.createElement('option');
             option.value = i;
             option.textContent = `Chapter ${i}`;
-            if (i === currentChapter) {
+            if (!isSpecialChapter && i === currentChapter) {
+                option.selected = true;
+            }
+            chapterSelect.appendChild(option);
+        }
+        
+        // Add special Chapter 90.2 option (placed between 90 and 91)
+        const specialOption = document.createElement('option');
+        specialOption.value = '90.2';
+        specialOption.textContent = 'Chapter 90.2';
+        if (isSpecialChapter) {
+            specialOption.selected = true;
+        }
+        chapterSelect.appendChild(specialOption);
+        
+        // Add chapters 91-204
+        for (let i = 91; i <= 204; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `Chapter ${i}`;
+            if (!isSpecialChapter && i === currentChapter) {
                 option.selected = true;
             }
             chapterSelect.appendChild(option);
@@ -2403,15 +2427,39 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
-      } else if (chapterNumber === 91) {
-          // Load Chapter 91 images (01.png to 43.png)
+      } else if (chapterNumber === '90.2') {
+          // Load Chapter 90.2 images (01.png to 43.png)
           for (let i = 1; i <= 43; i++) {
               const panel = document.createElement('div');
               panel.className = 'panel';
               panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
               
               const img = document.createElement('img');
-              img.src = `images/chapter 91/${i.toString().padStart(2, '0')}.png`;
+              img.src = `images/chapter 90.2/${i.toString().padStart(2, '0')}.png`;
+              img.alt = `Chapter 90.2 - Page ${i}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              
+              img.onload = function() {
+                  console.log(`Chapter 90.2 - Image ${i} loaded successfully`);
+              };
+              img.onerror = function() {
+                  console.error(`Failed to load Chapter 90.2 image ${i}: ${img.src}`);
+                  panel.innerHTML = `<p style="color: white;">Failed to load Chapter 90.2 image ${i}</p>`;
+              };
+              
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
+      } else if (chapterNumber === 91) {
+          // Load Chapter 91 images (01.jpg to 24.jpg, skipping 02.jpg)
+          for (let i = 1; i <= 24; i++) {
+              if (i === 2) continue; // Skip missing 02.jpg
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              
+              const img = document.createElement('img');
+              img.src = `images/chapter 91/${i.toString().padStart(2, '0')}.jpg`;
               img.alt = `Chapter 91 - Page ${i}`;
               img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
               
@@ -2457,7 +2505,7 @@ function loadChapterContent(chapterNumber) {
     chapterZeroCard.onclick = () => window.location.href = 'chapter.html?id=0';
     
     chapterZeroCard.innerHTML = `
-        <div class="chapter-number">${getChapterText(0)}</div>
+        <div class="chapter-number" data-chapter-id="0">${getChapterText(0)}</div>
     `;
     
     chaptersGrid.appendChild(chapterZeroCard);
@@ -2467,8 +2515,8 @@ function loadChapterContent(chapterNumber) {
         chapterZeroCard.classList.add('active');
     }, 25); // Show first
     
-    // Add chapters 1-204
-    for (let i = 1; i <= 204; i++) {
+    // Add chapters 1-90
+    for (let i = 1; i <= 90; i++) {
         const card = document.createElement('div');
         card.className = 'chapter-card fade-in';
         card.style.cursor = 'pointer';
@@ -2477,6 +2525,42 @@ function loadChapterContent(chapterNumber) {
         card.innerHTML = `
             <div class="chapter-number">${getChapterText(i)}</div>
         `;
+        // Tag with dataset for resize handling
+        const numberEl = card.querySelector('.chapter-number');
+        if (numberEl) numberEl.dataset.chapterId = i.toString();
+        
+        chaptersGrid.appendChild(card);
+        
+        // Force visibility for dynamically created cards
+        setTimeout(() => {
+            card.classList.add('active');
+        }, (i + 1) * 50); // Stagger the animations (i+1 to account for chapter 0)
+    }
+    
+    // Insert special Chapter 90.2 card between 90 and 91
+    const specialCard = document.createElement('div');
+    specialCard.className = 'chapter-card fade-in';
+    specialCard.style.cursor = 'pointer';
+    specialCard.onclick = () => window.location.href = 'chapter.html?id=90.2';
+    specialCard.innerHTML = `<div class="chapter-number" data-chapter-id="90.2">Chapter 90.2</div>`;
+    chaptersGrid.appendChild(specialCard);
+    setTimeout(() => {
+        specialCard.classList.add('active');
+    }, (92) * 50); // After 0..90
+    
+    // Add chapters 91-204
+    for (let i = 91; i <= 204; i++) {
+        const card = document.createElement('div');
+        card.className = 'chapter-card fade-in';
+        card.style.cursor = 'pointer';
+        card.onclick = () => window.location.href = `chapter.html?id=${i}`;
+        
+        card.innerHTML = `
+            <div class="chapter-number">${getChapterText(i)}</div>
+        `;
+        // Tag with dataset for resize handling
+        const numberEl = card.querySelector('.chapter-number');
+        if (numberEl) numberEl.dataset.chapterId = i.toString();
         
         chaptersGrid.appendChild(card);
         
@@ -2489,9 +2573,14 @@ function loadChapterContent(chapterNumber) {
     // Update chapter text on window resize
     window.addEventListener('resize', () => {
         const chapterNumbers = document.querySelectorAll('.chapter-number');
-        chapterNumbers.forEach((element, index) => {
-            const chapterNum = index === 0 ? 0 : index;
-            element.textContent = getChapterText(chapterNum);
+        chapterNumbers.forEach((element) => {
+            const chapterId = element.dataset.chapterId;
+            if (chapterId === '90.2') {
+                element.textContent = window.innerWidth <= 768 ? '90.2' : 'Chapter 90.2';
+            } else {
+                const num = parseInt(chapterId || '0', 10);
+                element.textContent = getChapterText(num);
+            }
         });
     });
 }
