@@ -3821,6 +3821,27 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
+      } else if (chapterNumber === 149) {
+          // Load Chapter 149 images (02 to 76, zero-padded .jpg)
+          for (let i = 2; i <= 76; i++) {
+              const num = i.toString().padStart(2, '0');
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              const img = document.createElement('img');
+              img.alt = `Chapter 149 - Page ${num}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              img.src = `images/chapter 149/${num}.jpg`;
+              img.onload = function() {
+                  console.log(`Chapter 149 - Image ${num} loaded successfully`);
+              };
+              img.onerror = function() {
+                  console.error(`Failed to load Chapter 149 image ${num}: ${img.src}`);
+                  panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 149 image ${num}</p>`;
+              };
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
       } else {
           // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
