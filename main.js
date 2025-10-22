@@ -3716,6 +3716,27 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
+      } else if (chapterNumber === 144) {
+          // Load Chapter 144 images (01 to 20, zero-padded .jpg)
+          for (let i = 1; i <= 20; i++) {
+              const num = i.toString().padStart(2, '0');
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              const img = document.createElement('img');
+              img.alt = `Chapter 144 - Page ${num}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              img.src = `images/chapter 144/${num}.jpg`;
+              img.onload = function() {
+                  console.log(`Chapter 144 - Image ${num} loaded successfully`);
+              };
+              img.onerror = function() {
+                  console.error(`Failed to load Chapter 144 image ${num}: ${img.src}`);
+                  panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 144 image ${num}</p>`;
+              };
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
       } else {
           // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
