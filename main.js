@@ -3546,6 +3546,29 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
+      } else if (chapterNumber === 136) {
+          // Load Chapter 136 images (01 to 29, zero-padded; 29 is .png)
+          for (let i = 1; i <= 29; i++) {
+              const num = i.toString().padStart(2, '0');
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              const img = document.createElement('img');
+              img.alt = `Chapter 136 - Page ${num}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              // Use .png for 29, otherwise .jpg
+              const ext = (i === 29) ? 'png' : 'jpg';
+              img.src = `images/chapter 136/${num}.${ext}`;
+              img.onload = function() {
+                  console.log(`Chapter 136 - Image ${num} loaded successfully`);
+              };
+              img.onerror = function() {
+                  console.error(`Failed to load Chapter 136 image ${num}: ${img.src}`);
+                  panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 136 image ${num}</p>`;
+              };
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
       } else {
           // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
