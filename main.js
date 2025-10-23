@@ -4367,6 +4367,70 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
+      } else if (chapterNumber === 167) {
+          // Load Chapter 167 images (02 to 84, zero-padded), try .jpg then fallback to .png
+          for (let i = 2; i <= 84; i++) {
+              // Skip known missing pages
+              if (i === 83) continue;
+              const num = i.toString().padStart(2, '0');
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              const img = document.createElement('img');
+              img.alt = `Chapter 167 - Page ${num}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              const jpgPath = `images/chapter 167/${num}.jpg`;
+              const pngPath = `images/chapter 167/${num}.png`;
+              img.src = jpgPath;
+              img.onload = function() {
+                  console.log(`Chapter 167 - Image ${num} loaded successfully`);
+              };
+              img.onerror = function() {
+                  if (img.src.endsWith('.jpg')) {
+                      img.onerror = function() {
+                          console.error(`Failed to load Chapter 167 image ${num}: ${img.src}`);
+                          panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 167 image ${num}</p>`;
+                      };
+                      img.src = pngPath;
+                  } else {
+                      console.error(`Failed to load Chapter 167 image ${num}: ${img.src}`);
+                      panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 167 image ${num}</p>`;
+                  }
+              };
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
+      } else if (chapterNumber === 168) {
+          // Load Chapter 168 images (02 to 97, zero-padded), try .jpg then fallback to .png
+          for (let i = 2; i <= 97; i++) {
+              const num = i.toString().padStart(2, '0');
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              const img = document.createElement('img');
+              img.alt = `Chapter 168 - Page ${num}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              const jpgPath = `images/chapter 168/${num}.jpg`;
+              const pngPath = `images/chapter 168/${num}.png`;
+              img.src = jpgPath;
+              img.onload = function() {
+                  console.log(`Chapter 168 - Image ${num} loaded successfully`);
+              };
+              img.onerror = function() {
+                  if (img.src.endsWith('.jpg')) {
+                      img.onerror = function() {
+                          console.error(`Failed to load Chapter 168 image ${num}: ${img.src}`);
+                          panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 168 image ${num}</p>`;
+                      };
+                      img.src = pngPath;
+                  } else {
+                      console.error(`Failed to load Chapter 168 image ${num}: ${img.src}`);
+                      panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 168 image ${num}</p>`;
+                  }
+              };
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
       } else {
           // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
