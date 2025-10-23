@@ -79,7 +79,7 @@ function setupChapterNavigation() {
     // Get chapter ID from URL
     const urlParams = new URLSearchParams(window.location.search);
     const rawId = urlParams.get('id');
-    const isSpecialChapter = rawId === '90.2';
+    const isSpecialChapter = rawId === '90.2' || rawId === '164.5';
     let currentChapter = rawId !== null ? parseInt(rawId) : 1;
     
     // Ensure chapter is within valid range (now includes chapter 0)
@@ -91,11 +91,11 @@ function setupChapterNavigation() {
     // Update chapter title
     const chapterTitle = document.querySelector('.chapter-title');
     if (chapterTitle) {
-        chapterTitle.textContent = isSpecialChapter ? 'Chapter 90.2' : `Chapter ${currentChapter}`;
+        chapterTitle.textContent = isSpecialChapter ? `Chapter ${rawId}` : `Chapter ${currentChapter}`;
     }
     
     // Load chapter content
-    loadChapterContent(isSpecialChapter ? '90.2' : currentChapter);
+    loadChapterContent(isSpecialChapter ? rawId : currentChapter);
     
     // Setup navigation buttons
     const prevButton = document.querySelector('.prev-chapter');
@@ -103,8 +103,28 @@ function setupChapterNavigation() {
     
     if (prevButton) {
         prevButton.addEventListener('click', () => {
-            if (currentChapter > 0) {
-                window.location.href = `chapter.html?id=${currentChapter - 1}`;
+            // Handle special chapters and boundaries
+            if (isSpecialChapter) {
+                if (rawId === '90.2') {
+                    window.location.href = 'chapter.html?id=90';
+                    return;
+                }
+                if (rawId === '164.5') {
+                    window.location.href = 'chapter.html?id=164';
+                    return;
+                }
+            } else {
+                if (currentChapter === 91) {
+                    window.location.href = 'chapter.html?id=90.2';
+                    return;
+                }
+                if (currentChapter === 165) {
+                    window.location.href = 'chapter.html?id=164.5';
+                    return;
+                }
+                if (currentChapter > 0) {
+                    window.location.href = `chapter.html?id=${currentChapter - 1}`;
+                }
             }
         });
         
@@ -117,8 +137,28 @@ function setupChapterNavigation() {
     
     if (nextButton) {
         nextButton.addEventListener('click', () => {
-            if (currentChapter < 204) {
-                window.location.href = `chapter.html?id=${currentChapter + 1}`;
+            // Handle special chapters and boundaries
+            if (isSpecialChapter) {
+                if (rawId === '90.2') {
+                    window.location.href = 'chapter.html?id=91';
+                    return;
+                }
+                if (rawId === '164.5') {
+                    window.location.href = 'chapter.html?id=165';
+                    return;
+                }
+            } else {
+                if (currentChapter === 90) {
+                    window.location.href = 'chapter.html?id=90.2';
+                    return;
+                }
+                if (currentChapter === 164) {
+                    window.location.href = 'chapter.html?id=164.5';
+                    return;
+                }
+                if (currentChapter < 204) {
+                    window.location.href = `chapter.html?id=${currentChapter + 1}`;
+                }
             }
         });
         
@@ -161,8 +201,28 @@ function setupChapterNavigation() {
         }
         chapterSelect.appendChild(specialOption);
         
-        // Add chapters 91-204
-        for (let i = 91; i <= 204; i++) {
+        // Add chapters 91-164
+        for (let i = 91; i <= 164; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `Chapter ${i}`;
+            if (!isSpecialChapter && i === currentChapter) {
+                option.selected = true;
+            }
+            chapterSelect.appendChild(option);
+        }
+        
+        // Add special Chapter 164.5 option (placed between 164 and 165)
+        const specialOption1645 = document.createElement('option');
+        specialOption1645.value = '164.5';
+        specialOption1645.textContent = 'Chapter 164.5';
+        if (isSpecialChapter && rawId === '164.5') {
+            specialOption1645.selected = true;
+        }
+        chapterSelect.appendChild(specialOption1645);
+        
+        // Add chapters 165-204
+        for (let i = 165; i <= 204; i++) {
             const option = document.createElement('option');
             option.value = i;
             option.textContent = `Chapter ${i}`;
@@ -4179,6 +4239,68 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
+      } else if (chapterNumber === 164) {
+          // Load Chapter 164 images (03 to 22, zero-padded), try .jpg then fallback to .png
+          for (let i = 3; i <= 22; i++) {
+              const num = i.toString().padStart(2, '0');
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              const img = document.createElement('img');
+              img.alt = `Chapter 164 - Page ${num}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              const jpgPath = `images/chapter 164/${num}.jpg`;
+              const pngPath = `images/chapter 164/${num}.png`;
+              img.src = jpgPath;
+              img.onload = function() {
+                  console.log(`Chapter 164 - Image ${num} loaded successfully`);
+              };
+              img.onerror = function() {
+                  if (img.src.endsWith('.jpg')) {
+                      img.onerror = function() {
+                          console.error(`Failed to load Chapter 164 image ${num}: ${img.src}`);
+                          panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 164 image ${num}</p>`;
+                      };
+                      img.src = pngPath;
+                  } else {
+                      console.error(`Failed to load Chapter 164 image ${num}: ${img.src}`);
+                      panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 164 image ${num}</p>`;
+                  }
+              };
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
+      } else if (chapterNumber === '164.5') {
+          // Load Chapter 164.5 images (03 to 22, zero-padded), try .jpg then fallback to .png
+          for (let i = 3; i <= 22; i++) {
+              const num = i.toString().padStart(2, '0');
+              const panel = document.createElement('div');
+              panel.className = 'panel';
+              panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+              const img = document.createElement('img');
+              img.alt = `Chapter 164.5 - Page ${num}`;
+              img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              const jpgPath = `images/chapter 164.5/${num}.jpg`;
+              const pngPath = `images/chapter 164.5/${num}.png`;
+              img.src = jpgPath;
+              img.onload = function() {
+                  console.log(`Chapter 164.5 - Image ${num} loaded successfully`);
+              };
+              img.onerror = function() {
+                  if (img.src.endsWith('.jpg')) {
+                      img.onerror = function() {
+                          console.error(`Failed to load Chapter 164.5 image ${num}: ${img.src}`);
+                          panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 164.5 image ${num}</p>`;
+                      };
+                      img.src = pngPath;
+                  } else {
+                      console.error(`Failed to load Chapter 164.5 image ${num}: ${img.src}`);
+                      panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 164.5 image ${num}</p>`;
+                  }
+              };
+              panel.appendChild(img);
+              chapterContent.appendChild(panel);
+          }
       } else {
           // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
@@ -4252,8 +4374,41 @@ function loadChapterContent(chapterNumber) {
         specialCard.classList.add('active');
     }, (92) * 50); // After 0..90
     
-    // Add chapters 91-204
-    for (let i = 91; i <= 204; i++) {
+    // Add chapters 91-164
+    for (let i = 91; i <= 164; i++) {
+        const card = document.createElement('div');
+        card.className = 'chapter-card fade-in';
+        card.style.cursor = 'pointer';
+        card.onclick = () => window.location.href = `chapter.html?id=${i}`;
+        
+        card.innerHTML = `
+            <div class="chapter-number">${getChapterText(i)}</div>
+        `;
+        // Tag with dataset for resize handling
+        const numberEl = card.querySelector('.chapter-number');
+        if (numberEl) numberEl.dataset.chapterId = i.toString();
+        
+        chaptersGrid.appendChild(card);
+        
+        // Force visibility for dynamically created cards
+        setTimeout(() => {
+            card.classList.add('active');
+        }, (i + 1) * 50); // Stagger the animations (i+1 to account for chapter 0)
+    }
+    
+    // Insert special Chapter 164.5 card between 164 and 165
+    const specialCard1645 = document.createElement('div');
+    specialCard1645.className = 'chapter-card fade-in';
+    specialCard1645.style.cursor = 'pointer';
+    specialCard1645.onclick = () => window.location.href = 'chapter.html?id=164.5';
+    specialCard1645.innerHTML = `<div class="chapter-number" data-chapter-id="164.5">Chapter 164.5</div>`;
+    chaptersGrid.appendChild(specialCard1645);
+    setTimeout(() => {
+        specialCard1645.classList.add('active');
+    }, (165) * 50);
+    
+    // Add chapters 165-204
+    for (let i = 165; i <= 204; i++) {
         const card = document.createElement('div');
         card.className = 'chapter-card fade-in';
         card.style.cursor = 'pointer';
@@ -4279,8 +4434,8 @@ function loadChapterContent(chapterNumber) {
         const chapterNumbers = document.querySelectorAll('.chapter-number');
         chapterNumbers.forEach((element) => {
             const chapterId = element.dataset.chapterId;
-            if (chapterId === '90.2') {
-                element.textContent = window.innerWidth <= 768 ? '90.2' : 'Chapter 90.2';
+            if (chapterId === '90.2' || chapterId === '164.5') {
+                element.textContent = window.innerWidth <= 768 ? chapterId : `Chapter ${chapterId}`;
             } else {
                 const num = parseInt(chapterId || '0', 10);
                 element.textContent = getChapterText(num);
