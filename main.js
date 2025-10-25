@@ -5634,6 +5634,13 @@ function loadChapterContent(chapterNumber) {
                 panel.appendChild(img);
                 chapterContent.appendChild(panel);
             }
+        } else if (chapterNumber >= 201 && chapterNumber <= 204) {
+            // Show Coming Soon message for chapters 201–204
+            const panel = document.createElement('div');
+            panel.className = 'panel';
+            panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px; align-items: center; justify-content: center;';
+            panel.innerHTML = `<p style=\"color: white; font-size: 1.5rem; text-align: center; width: 100%;\">Content coming soon...</p>`;
+            chapterContent.appendChild(panel);
         } else {
             // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
