@@ -4955,8 +4955,41 @@ function loadChapterContent(chapterNumber) {
               panel.appendChild(img);
               chapterContent.appendChild(panel);
           }
-      } else {
-          // For other chapters, keep the dummy panels
+      } else if (chapterNumber === 180) {
+            // Load Chapter 180 images (04 to 79, two-digit zero-padded), try .jpg then fallback to .png
+            // Skip missing pages based on directory listing: 09, 37, 56
+            for (let i = 4; i <= 79; i++) {
+                if (i === 9 || i === 37 || i === 56) continue;
+                const num = i.toString().padStart(2, '0');
+                const panel = document.createElement('div');
+                panel.className = 'panel';
+                panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+                const img = document.createElement('img');
+                img.alt = `Chapter 180 - Page ${num}`;
+                img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+                const jpgPath = `images/chapter 180/${num}.jpg`;
+                const pngPath = `images/chapter 180/${num}.png`;
+                img.src = jpgPath;
+                img.onload = function() {
+                    console.log(`Chapter 180 - Image ${num} loaded successfully`);
+                };
+                img.onerror = function() {
+                    if (img.src.endsWith('.jpg')) {
+                        img.onerror = function() {
+                            console.error(`Failed to load Chapter 180 image ${num}: ${img.src}`);
+                            panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 180 image ${num}</p>`;
+                        };
+                        img.src = pngPath;
+                    } else {
+                        console.error(`Failed to load Chapter 180 image ${num}: ${img.src}`);
+                        panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 180 image ${num}</p>`;
+                    }
+                };
+                panel.appendChild(img);
+                chapterContent.appendChild(panel);
+            }
+        } else {
+            // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
              const panel = document.createElement('div');
              panel.className = 'panel fade-in active';
