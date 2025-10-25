@@ -2558,23 +2558,34 @@ function loadChapterContent(chapterNumber) {
               chapterContent.appendChild(panel);
           }
       } else if (chapterNumber === '90.2') {
-          // Load Chapter 90.2 images (01.png to 43.png)
+          // Load Chapter 90.2 images (01 to 43, zero-padded), try .jpg then fallback to .png
           for (let i = 1; i <= 43; i++) {
               const panel = document.createElement('div');
               panel.className = 'panel';
               panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
               
               const img = document.createElement('img');
-              img.src = `images/chapter 90.2/${i.toString().padStart(2, '0')}.png`;
               img.alt = `Chapter 90.2 - Page ${i}`;
               img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+              const num = i.toString().padStart(2, '0');
+              const jpgPath = `images/chapter 90.2/${num}.jpg`;
+              const pngPath = `images/chapter 90.2/${num}.png`;
+              img.src = jpgPath;
               
               img.onload = function() {
                   console.log(`Chapter 90.2 - Image ${i} loaded successfully`);
               };
               img.onerror = function() {
-                  console.error(`Failed to load Chapter 90.2 image ${i}: ${img.src}`);
-                  panel.innerHTML = `<p style="color: white;">Failed to load Chapter 90.2 image ${i}</p>`;
+                  if (img.src.endsWith('.jpg')) {
+                      img.onerror = function() {
+                          console.error(`Failed to load Chapter 90.2 image ${i}: ${img.src}`);
+                          panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 90.2 image ${i}</p>`;
+                      };
+                      img.src = pngPath;
+                  } else {
+                      console.error(`Failed to load Chapter 90.2 image ${i}: ${img.src}`);
+                      panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 90.2 image ${i}</p>`;
+                  }
               };
               
               panel.appendChild(img);
@@ -4826,9 +4837,9 @@ function loadChapterContent(chapterNumber) {
               chapterContent.appendChild(panel);
           }
       } else if (chapterNumber === 179) {
-          // Load Chapter 179 images (02 to 66, two-digit zero-padded), try .jpg then fallback to .png
+          // Load Chapter 179 images (02 to 67, two-digit zero-padded), try .jpg then fallback to .png
           // Mixed extensions detected (03.png), default to .jpg then fallback
-          for (let i = 2; i <= 66; i++) {
+          for (let i = 2; i <= 67; i++) {
               const num = i.toString().padStart(2, '0');
               const panel = document.createElement('div');
               panel.className = 'panel';
@@ -4858,10 +4869,8 @@ function loadChapterContent(chapterNumber) {
               chapterContent.appendChild(panel);
           }
       } else if (chapterNumber === '179.1') {
-          // Load Chapter 179.1 images (01 to 16, zero-padded), try .jpg then fallback to .png
-          // Skip missing page based on directory listing: 15
-          for (let i = 1; i <= 16; i++) {
-              if (i === 15) continue;
+          // Load Chapter 179.1 images (01 to 17, zero-padded), try .jpg then fallback to .png
+          for (let i = 1; i <= 17; i++) {
               const num = i.toString().padStart(2, '0');
               const panel = document.createElement('div');
               panel.className = 'panel';
@@ -4892,9 +4901,7 @@ function loadChapterContent(chapterNumber) {
           }
       } else if (chapterNumber === '179.2') {
           // Load Chapter 179.2 images (01 to 12, zero-padded), try .jpg then fallback to .png
-          // Skip missing pages based on directory listing: 10 and 11
           for (let i = 1; i <= 12; i++) {
-              if (i === 10 || i === 11) continue;
               const num = i.toString().padStart(2, '0');
               const panel = document.createElement('div');
               panel.className = 'panel';
