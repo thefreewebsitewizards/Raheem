@@ -5316,6 +5316,39 @@ function loadChapterContent(chapterNumber) {
                 panel.appendChild(img);
                 chapterContent.appendChild(panel);
             }
+        } else if (chapterNumber === 191) {
+            // Load Chapter 191 images (002 to 101, three-digit zero-padded), try .jpg then fallback to .png
+            // Skip missing pages based on directory listing: 057, 059
+            for (let i = 2; i <= 101; i++) {
+                if (i === 57 || i === 59) continue;
+                const num = i.toString().padStart(3, '0');
+                const panel = document.createElement('div');
+                panel.className = 'panel';
+                panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+                const img = document.createElement('img');
+                img.alt = `Chapter 191 - Page ${num}`;
+                img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+                const jpgPath = `images/chapter 191/${num}.jpg`;
+                const pngPath = `images/chapter 191/${num}.png`;
+                img.src = jpgPath;
+                img.onload = function() {
+                    console.log(`Chapter 191 - Image ${num} loaded successfully`);
+                };
+                img.onerror = function() {
+                    if (img.src.endsWith('.jpg')) {
+                        img.onerror = function() {
+                            console.error(`Failed to load Chapter 191 image ${num}: ${img.src}`);
+                            panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 191 image ${num}</p>`;
+                        };
+                        img.src = pngPath;
+                    } else {
+                        console.error(`Failed to load Chapter 191 image ${num}: ${img.src}`);
+                        panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 191 image ${num}</p>`;
+                    }
+                };
+                panel.appendChild(img);
+                chapterContent.appendChild(panel);
+            }
         } else {
             // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
