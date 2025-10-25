@@ -5054,6 +5054,39 @@ function loadChapterContent(chapterNumber) {
                 panel.appendChild(img);
                 chapterContent.appendChild(panel);
             }
+        } else if (chapterNumber === 183) {
+            // Load Chapter 183 images (02 to 90, two-digit zero-padded), try .jpg then fallback to .png
+            // Skip missing pages based on directory listing: 24
+            for (let i = 2; i <= 90; i++) {
+                if (i === 24) continue;
+                const num = i.toString().padStart(2, '0');
+                const panel = document.createElement('div');
+                panel.className = 'panel';
+                panel.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: flex !important; min-height: 600px;';
+                const img = document.createElement('img');
+                img.alt = `Chapter 183 - Page ${num}`;
+                img.style.cssText = 'opacity: 1 !important; visibility: visible !important; display: block !important; width: 100%; height: auto;';
+                const jpgPath = `images/chapter 183/${num}.jpg`;
+                const pngPath = `images/chapter 183/${num}.png`;
+                img.src = jpgPath;
+                img.onload = function() {
+                    console.log(`Chapter 183 - Image ${num} loaded successfully`);
+                };
+                img.onerror = function() {
+                    if (img.src.endsWith('.jpg')) {
+                        img.onerror = function() {
+                            console.error(`Failed to load Chapter 183 image ${num}: ${img.src}`);
+                            panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 183 image ${num}</p>`;
+                        };
+                        img.src = pngPath;
+                    } else {
+                        console.error(`Failed to load Chapter 183 image ${num}: ${img.src}`);
+                        panel.innerHTML = `<p style=\"color: white;\">Failed to load Chapter 183 image ${num}</p>`;
+                    }
+                };
+                panel.appendChild(img);
+                chapterContent.appendChild(panel);
+            }
         } else {
             // For other chapters, keep the dummy panels
           for (let i = 0; i < 6; i++) {
