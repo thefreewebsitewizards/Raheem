@@ -5844,6 +5844,56 @@ function loadChapterContent(chapterNumber) {
             }
         });
     });
+
+    // Setup search bar filtering and navigation
+    const searchInput = document.getElementById('chapter-search-input');
+    const searchButton = document.getElementById('chapter-search-button');
+    const cards = Array.from(document.querySelectorAll('.chapters-grid .chapter-card'));
+
+    function filterCards(term) {
+        const q = term.trim().toLowerCase();
+        const norm = q.replace(/^(?:chapter|chap|c)\s*[:\-#]?/, '').trim();
+        const needle = norm || q;
+        if (!needle) {
+            cards.forEach(c => c.style.display = '');
+            return;
+        }
+        cards.forEach(c => {
+            const el = c.querySelector('.chapter-number');
+            const idText = ((el?.dataset.chapterId || '') + ' ' + (el?.textContent || '')).toLowerCase();
+            c.style.display = idText.includes(needle) ? '' : 'none';
+        });
+    }
+
+    function navigateToChapter(term) {
+        const raw = term.trim();
+        if (!raw) return;
+        const special = ['90.2','164.5','179.1','179.2','179.6'];
+        const candidate = raw.replace(/^(?:chapter|chap|c)\s*[:\-#]?/i, '').trim();
+        // Navigate special chapters first
+        if (special.includes(candidate)) {
+            window.location.href = `chapter.html?id=${candidate}`;
+            return;
+        }
+        if (special.includes(raw)) {
+            window.location.href = `chapter.html?id=${raw}`;
+            return;
+        }
+        // Navigate integer chapter numbers
+        const num = parseInt(candidate || raw, 10);
+        if (!Number.isNaN(num) && num >= 0 && num <= 204) {
+            window.location.href = `chapter.html?id=${num}`;
+        }
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            filterCards(searchInput.value);
+        });
+    }
+    if (searchButton) {
+        searchButton.addEventListener('click', () => navigateToChapter(searchInput ? searchInput.value.trim() : ''));
+    }
 }
 
 // Run chapter card generation if on chapters page
